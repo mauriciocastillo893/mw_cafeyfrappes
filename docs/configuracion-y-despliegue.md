@@ -1,0 +1,73 @@
+# Configuración y despliegue
+
+> Creado 2026-10-06 (Fase 1).
+
+## Desarrollo local
+
+Requisitos: Node 24, pnpm 9, Docker Desktop encendido.
+
+```bash
+pnpm install
+pnpm exec supabase start      # Supabase local en Docker (puertos 553xx, no chocan con Axel)
+cp .env.example .env.local    # y pegar URL/llaves que imprime el comando anterior
+pnpm dev                      # http://localhost:3000
+```
+
+- Studio local (ver tablas): http://127.0.0.1:55323
+- Correos locales de Auth: http://127.0.0.1:55324
+- `pnpm exec supabase db reset` vuelve a aplicar migraciones + seed.
+- Después de cambiar una migración:
+  `pnpm exec supabase gen types typescript --local > lib/database.types.ts`.
+
+### Cuenta de `/admin` local
+
+```bash
+node --env-file=.env.local scripts/create-admin.mjs dev@mw.test
+```
+
+Imprime una contraseña temporal una sola vez.
+
+## Producción
+
+### 1. Supabase
+
+1. Crear proyecto en https://supabase.com (plan Free, región `us-east-1`
+   o la más cercana disponible). Idealmente con el correo del negocio
+   (P1); si no, a nombre del desarrollador y se transfiere después.
+2. Enlazar y subir el esquema:
+   ```bash
+   pnpm exec supabase login
+   pnpm exec supabase link --project-ref <ref>
+   pnpm exec supabase db push --include-seed
+   ```
+3. En **Authentication → URL Configuration**: Site URL = URL de Vercel.
+4. Crear las cuentas de `/admin` (Franco y desarrollador) con
+   `scripts/create-admin.mjs` usando las llaves de producción en un
+   `.env.production.local` temporal (no se commitea).
+
+### 2. Vercel
+
+1. **Add New → Project** → importar `mauriciocastillo893/mw_cafeyfrappes`.
+2. **Root Directory: dejarlo vacío** (la raíz del repo). El asistente
+   puede proponer `app/` por la carpeta de rutas; eso rompe el build
+   (lección de Axel Style).
+3. Variables de entorno (Production y Preview):
+
+| Variable | De dónde sale |
+|---|---|
+| `NEXT_PUBLIC_SUPABASE_URL` | Supabase → Project Settings → API |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Igual (anon / publishable) |
+| `SUPABASE_SERVICE_ROLE_KEY` | Igual (service_role / secret). Nunca en el navegador |
+| `APP_BASE_URL` | `https://<proyecto>.vercel.app` |
+| `CRON_SECRET` | Texto aleatorio largo (`openssl rand -hex 24`) |
+
+4. Activar **Analytics** en el proyecto de Vercel (se hace desde el
+   dashboard, no desde el código).
+5. El cron diario (`vercel.json` → `/api/cron/daily`) se registra solo
+   al desplegar.
+
+### 3. Después del primer deploy
+
+- Poner la URL real en `/admin/negocio` (cuando exista; mientras, en
+  `business_settings.site_url`) y en el Estudio QR.
+- Probar `/`, `/admin/login`, `/privacidad`, `/terminos`.

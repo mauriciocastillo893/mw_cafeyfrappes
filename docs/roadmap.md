@@ -1,0 +1,138 @@
+# Roadmap — MW Café & Frappés
+
+> Creado 2026-10-06. Se actualiza en el mismo cambio que avanza o
+> termina una tarea (regla 8 de `CLAUDE.md`). Al empezar cada sesión,
+> leer este archivo y seguir desde donde quedó.
+
+Leyenda: **pendiente** · **en curso** · **terminada**.
+
+Orden acordado con el usuario (2026-10-06): menú y landing primero,
+`/admin` después, pedidos sin pago en línea, y **al final Stripe e
+Instagram**. El 3D es una pista paralela que se va perfeccionando.
+
+---
+
+## Bloqueos actuales
+
+- Correo del negocio (P1): sin él, Supabase/Vercel/Google se crean a
+  nombre del desarrollador y se transfieren después.
+- Menú real y fotos oficiales (P2, P3): se trabaja con datos de ejemplo.
+- Ver la tabla completa de pendientes en `CLAUDE.md`, sección 12.
+
+---
+
+## Fase 0 — Arranque · **terminada** (2026-10-06)
+
+- [x] Revisar Axel Style y decidir qué se reutiliza (`CLAUDE.md` 3.2)
+- [x] Resolver preguntas iniciales con el usuario (`docs/decisiones.md`)
+- [x] Estudio de QR con la marca MW (artefacto)
+- [x] `CLAUDE.md`, roadmap, decisiones, docs de Instagram, 3D y diseño
+- [x] **Aprobación del usuario** de este roadmap y de la paleta (2026-10-06)
+
+**Terminada cuando:** el usuario aprueba el plan.
+
+## Fase 1 — Base del proyecto · **en curso** (2026-10-06)
+
+- [x] Next.js + TS + Tailwind 4 + pnpm, copiando de Axel: estructura,
+      `app/admin` (login, layout, nav, componentes), PWA, SEO, legales
+      (redactadas para MW; borrador hasta P1/P5/P13)
+- [x] Migración inicial `20261006000000_init_schema.sql`: `business_settings`,
+      `categories`, `products`, `product_sizes`, `extra_groups`, `extras`,
+      `product_extra_groups`, `landing_sections`, `admin_users`; RLS de solo
+      lectura; buckets `menu-photos`, `menu-models`, `site-assets`
+- [x] Seed `supabase/seed/mw-cafe.sql`: 3 categorías, 15 productos, 14
+      tamaños, 20 extras (todo `is_sample`) y fotos en `public/sample`
+- [x] Tokens de la paleta en `app/globals.css` (claro, oscuro y `dark:`)
+- [x] Logo en variantes (café, crema, ícono de app, favicon) en `public/brand`
+- [x] Portada provisional (identidad, favoritos, horario, ubicación) y
+      `/admin` con inicio (números del menú, abierto/cerrado)
+- [x] `lib/money.ts` y `lib/weekly-hours.ts` con pruebas (60 pasan)
+- [x] Cron diario `/api/cron/daily` (keep-alive) y `scripts/create-admin.mjs`
+- [x] Probado en local con Supabase en Docker: migración, seed, RLS,
+      login de `/admin`, portada en claro/oscuro y celular, `pnpm build`
+- [x] Respuestas P3–P7 aplicadas: Crepas y Sodas italianas en el seed (21
+      productos), dirección de Instagram, reglas de programados y envío
+- [ ] **Proyecto de Supabase en la nube** (`stzbrtfozwtvxozalydo`) + `db push`:
+      el CLI está con la sesión de otra cuenta (Bellisima Nails); falta
+      iniciar sesión con la cuenta dueña del proyecto de MW
+- [ ] Git: subir a dos repos a la vez (el del desarrollador y el del
+      cliente); Vercel se conecta al del cliente
+- [ ] **Proyecto de Vercel** + variables + primer deploy (necesita al usuario)
+- [ ] Cuentas de `/admin` en producción: desarrollador ya; Franco cuando
+      tengamos su correo (P1)
+
+**Pruebas:** `lib/money.test.ts`, `lib/weekly-hours.test.ts`, RLS manual (`docs/pruebas.md`).
+**Terminada cuando:** el esqueleto está en línea y `/admin/login` funciona.
+
+> Para la Fase 5 se vuelven a copiar de Axel `lib/google-auth.ts`,
+> `lib/gmail.ts` y `lib/google-calendar.ts` (se quitaron en la Fase 1
+> para no cargar código sin usar).
+
+## Fase 2 — Menú digital (`/menu`) · pendiente
+
+- [ ] Lista por categorías con foto, precio, tamaños y "agotado"
+- [ ] Búsqueda y filtro (frío/caliente)
+- [ ] Detalle de producto con extras
+- [ ] Lectura de `?mesa=N` (se guarda para el pedido)
+- [ ] Aviso de horario cuando está cerrado
+
+**Pruebas:** formato de precios, orden por categoría, producto agotado.
+**Terminada cuando:** el menú se ve bien en celular desde el QR.
+
+## Fase 3 — Landing (`/`) · pendiente
+
+- [ ] Hero, "Extensión de Mundo Waffle Huatulco", destacados, horario,
+      mapa, redes, botón de WhatsApp, "Ver menú y pedir"
+- [ ] Secciones editables (`landing_sections`)
+
+## Fase 4 — `/admin` · pendiente
+
+- [ ] Menú: categorías, productos, tamaños, extras, agotado, fotos, orden
+- [ ] Negocio: datos, WhatsApp, redes, transferencia
+- [ ] Horario de apertura
+- [ ] Landing
+- [ ] QR: estudio de QR por mesa dentro del panel (portar el artefacto)
+- [ ] Métricas: visitas al menú, productos más vistos, clics a WhatsApp
+
+## Fase 5 — Pedidos (sin pago en línea) · pendiente
+
+- [ ] Carrito y cálculo de total en el servidor (tamaños + extras)
+- [ ] Tipos de pedido (mostrador / mesa / domicilio) activables
+- [ ] Ahora o programado: anticipación 2 h, cada 30 min, máx. 5 por
+      franja, otros días solo si abren (todo editable)
+- [ ] Efectivo y transferencia; matriz de pagos en `/admin/negocio`
+- [ ] Envío a domicilio $40 con switch automático/manual; en manual, la
+      tienda fija el envío en `/admin/pedidos`
+- [ ] `/pedido/<token>` con estado en vivo
+- [ ] `/admin/pedidos`: tablero en vivo, sonido, cambio de estado, marcar pagado
+- [ ] Correo al negocio (Gmail) y evento en Calendar para programados
+
+**Pruebas:** total, mínimo de domicilio ($80), horas programables,
+matriz de pagos, transiciones de estado.
+**Terminada cuando:** se puede pedir de punta a punta y el personal lo ve.
+
+## Pista paralela — 3D / AR · pendiente
+
+Ver `docs/3d-ar.md`. Etapas:
+- [ ] Etapa 1: `<model-viewer>` en el detalle de producto con un modelo de prueba
+- [ ] Etapa 2: affogato, frappé y café generados por IA desde foto + limpieza en Blender
+- [ ] Etapa 3: subir y reemplazar modelos desde `/admin/menu`
+- [ ] Etapa 4: mejorar realismo (modelado en Blender, escaneo de waffles)
+
+## Fase 6 — Stripe Checkout · pendiente
+
+- [ ] Cuenta de Stripe de Franco (P9); llaves de prueba primero
+- [ ] Checkout para domicilio (tarjeta, Google Pay, Apple Pay)
+- [ ] Webhook `checkout.session.completed` → pedido pagado
+- [ ] Reembolso desde `/admin/pedidos` (opcional)
+- [ ] Activar domicilio
+
+## Fase 7 — Instagram · pendiente (no confirmado)
+
+Ver `docs/instagram.md`.
+
+## Fase 8 — Cierre · pendiente
+
+- [ ] Páginas legales con datos finales (P13)
+- [ ] Prueba real con Franco en el local
+- [ ] `docs/manual-franco.md`

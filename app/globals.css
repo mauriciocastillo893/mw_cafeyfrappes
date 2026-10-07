@@ -1,0 +1,151 @@
+@import "tailwindcss";
+
+/*
+ * `dark:` sigue las mismas reglas que los tokens: elección explícita
+ * (`data-theme`) primero, y si no hay, el tema del sistema.
+ */
+@custom-variant dark {
+  &:where([data-theme="dark"], [data-theme="dark"] *) {
+    @slot;
+  }
+  @media (prefers-color-scheme: dark) {
+    &:where(:not([data-theme="light"], [data-theme="light"] *)) {
+      @slot;
+    }
+  }
+}
+
+/*
+ * Paleta de MW Café & Frappés (docs/diseno.md, aprobada 2026-10-06):
+ * café espresso, moka, caramelo, kraft, crema y el rosa de las paredes
+ * del local. Los nombres de los tokens son por función (primary, accent…)
+ * para que los componentes copiados de Axel Style sirvan sin cambios.
+ *
+ * Tres estados de tema:
+ * - Sin atributo: sigue al sistema (`prefers-color-scheme`). Como MW abre
+ *   de 7 a 11 pm, mucha gente verá el sitio en oscuro.
+ * - `data-theme="dark"` / `data-theme="light"`: elección explícita. /admin
+ *   la pone en su contenedor con el botón sol/luna (`ThemeToggle.tsx`).
+ */
+:root {
+  --brand-cream: #fffaf2; /* fondo general (crema batida) */
+  --brand-sand: #f3e7d3; /* superficies y secciones (kraft claro) */
+  --brand-kraft: #efe0c6; /* fondos de sección con más carácter */
+  --brand-stone: #a8927c; /* texto apagado, íconos inactivos */
+  --brand-border: #e4d3ba;
+  --brand-accent-wash: #f3dfc3;
+  --brand-accent: #b5762f; /* caramelo: precios, "agregar", activos */
+  --brand-primary: #5a3420; /* moka: botones */
+  --brand-ink: #2b1a12; /* espresso: texto */
+  --brand-rosa: #e9b9b4; /* etiquetas "nuevo", "favorito" */
+  --brand-on-primary: #fff7ec;
+
+  --background: var(--brand-cream);
+  --foreground: var(--brand-ink);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --brand-cream: #1a120d;
+    --brand-sand: #241913;
+    --brand-kraft: #2e2018;
+    --brand-stone: #8c7662;
+    --brand-border: #3a2a1f;
+    --brand-accent-wash: #3a2817;
+    --brand-accent: #d9a066;
+    --brand-primary: #d9a066;
+    --brand-ink: #f1e4d2;
+    --brand-rosa: #b5626a;
+    --brand-on-primary: #1a120d;
+    color-scheme: dark;
+  }
+}
+
+[data-theme="dark"] {
+  --brand-cream: #1a120d;
+  --brand-sand: #241913;
+  --brand-kraft: #2e2018;
+  --brand-stone: #8c7662;
+  --brand-border: #3a2a1f;
+  --brand-accent-wash: #3a2817;
+  --brand-accent: #d9a066;
+  --brand-primary: #d9a066;
+  --brand-ink: #f1e4d2;
+  --brand-rosa: #b5626a;
+  --brand-on-primary: #1a120d;
+  color-scheme: dark;
+}
+
+[data-theme="light"] {
+  --brand-cream: #fffaf2;
+  --brand-sand: #f3e7d3;
+  --brand-kraft: #efe0c6;
+  --brand-stone: #a8927c;
+  --brand-border: #e4d3ba;
+  --brand-accent-wash: #f3dfc3;
+  --brand-accent: #b5762f;
+  --brand-primary: #5a3420;
+  --brand-ink: #2b1a12;
+  --brand-rosa: #e9b9b4;
+  --brand-on-primary: #fff7ec;
+  color-scheme: light;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-figtree);
+  --font-display: var(--font-playfair);
+
+  --color-brand-cream: var(--brand-cream);
+  --color-brand-sand: var(--brand-sand);
+  --color-brand-kraft: var(--brand-kraft);
+  --color-brand-stone: var(--brand-stone);
+  --color-brand-border: var(--brand-border);
+  --color-brand-accent-wash: var(--brand-accent-wash);
+  --color-brand-accent: var(--brand-accent);
+  --color-brand-primary: var(--brand-primary);
+  --color-brand-ink: var(--brand-ink);
+  --color-brand-rosa: var(--brand-rosa);
+  --color-brand-on-primary: var(--brand-on-primary);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), system-ui, "Segoe UI", Arial, sans-serif;
+}
+
+h1,
+h2,
+h3 {
+  text-wrap: balance;
+}
+
+/* Los `<button>` no traen cursor de mano por default en ningún navegador. */
+button:not(:disabled) {
+  cursor: pointer;
+}
+button:disabled {
+  cursor: not-allowed;
+}
+
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
