@@ -52,11 +52,13 @@ Instagram**. El 3D es una pista paralela que se va perfeccionando.
       login de `/admin`, portada en claro/oscuro y celular, `pnpm build`
 - [x] Respuestas P3–P7 aplicadas: Crepas y Sodas italianas en el seed (21
       productos), dirección de Instagram, reglas de programados y envío
-- [ ] **Proyecto de Supabase en la nube** (`stzbrtfozwtvxozalydo`) + `db push`:
-      el CLI está con la sesión de otra cuenta (Bellisima Nails); falta
-      iniciar sesión con la cuenta dueña del proyecto de MW
-- [ ] Git: subir a dos repos a la vez (el del desarrollador y el del
-      cliente); Vercel se conecta al del cliente
+- [x] **Supabase en la nube** (`stzbrtfozwtvxozalydo`, cuenta
+      mwcafefrappesdev): migración + seed aplicados el 2026-10-06;
+      verificado con la llave pública (5 categorías, 21 productos, 27
+      extras, 3 buckets) y la portada leyendo de producción
+- [x] Git: `origin` sube a dos repos a la vez
+      (`mauriciocastillo893/mw_cafeyfrappes` y `mwcafefrappes/mw_cafeyfrappes`);
+      Vercel se conecta al del cliente
 - [ ] **Proyecto de Vercel** + variables + primer deploy (necesita al usuario)
 - [ ] Cuentas de `/admin` en producción: desarrollador ya; Franco cuando
       tengamos su correo (P1)

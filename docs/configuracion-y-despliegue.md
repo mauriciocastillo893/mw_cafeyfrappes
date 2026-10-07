@@ -45,9 +45,22 @@ Imprime una contraseña temporal una sola vez.
    `scripts/create-admin.mjs` usando las llaves de producción en un
    `.env.production.local` temporal (no se commitea).
 
+### Repos
+
+`origin` baja de `mauriciocastillo893/mw_cafeyfrappes` y sube a ese y a
+`mwcafefrappes/mw_cafeyfrappes` (el del cliente) con un solo `git push`:
+
+```bash
+git remote set-url --add --push origin https://github.com/mauriciocastillo893/mw_cafeyfrappes.git
+git remote set-url --add --push origin https://github.com/mwcafefrappes/mw_cafeyfrappes.git
+```
+
+Si un push falla en uno de los dos, el otro sí queda actualizado:
+volver a correr `git push` cuando se arregle.
+
 ### 2. Vercel
 
-1. **Add New → Project** → importar `mauriciocastillo893/mw_cafeyfrappes`.
+1. **Add New → Project** → importar **`mwcafefrappes/mw_cafeyfrappes`** (el repo del cliente).
 2. **Root Directory: dejarlo vacío** (la raíz del repo). El asistente
    puede proponer `app/` por la carpeta de rutas; eso rompe el build
    (lección de Axel Style).
