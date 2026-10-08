@@ -116,3 +116,34 @@ https://claude.ai/artifact/5ze7M1jtJog4Cdfih3PDRy
   (de `../Publicaciones`), hasta tener fotos oficiales (P3).
 - Hasta 6 favoritos en la portada; el resto en `/menu`.
 - Mapa embebido de Google sin llave de API (gratis).
+
+## 2026-10-08 — `/admin/menu` (Fase 4)
+
+- **Agotado y oculto con un clic** desde la lista, sin entrar al producto
+  (lo más usado en el día a día).
+- **Temperatura como opción única** (No aplica / Frío / Caliente) para
+  que un producto no quede en los dos filtros.
+- **Con tamaños, el precio base se guarda igual al del tamaño más
+  barato** (no se usa para cobrar; evita un precio en 0).
+- **Fotos reducidas en el navegador** a 1600 px JPG antes de subir:
+  cuida el 1 GB gratis de Storage y el límite de 4.5 MB de Vercel.
+- **Una categoría con productos no se puede borrar** (se oculta o se
+  vacía primero). Borrar un grupo de extras sí borra sus extras, con
+  confirmación que dice cuántos productos lo usan.
+- Guardar un producto le quita la marca de "ejemplo".
+
+## 2026-10-08 — `/admin/negocio` (Fase 4)
+
+- **Domicilio y tarjeta no se pueden activar sin Stripe** (Fase 6): el
+  domicilio se paga solo con tarjeta (CLAUDE.md 5.3), así que sin cobro
+  en línea no tendría cómo pagarse.
+- **Domicilio no ofrece efectivo ni transferencia** (la tabla de
+  CLAUDE.md 5.3 no los marca como activables).
+- **Mostrador y mesa deben tener al menos un método** de pago.
+- **Si se ofrece transferencia sin CLABE** se avisa en el panel, pero se
+  deja guardar (los datos de transferencia están pendientes, P8).
+- **CLABE con dígito verificador**: evita que un número mal copiado
+  llegue al cliente.
+- **WhatsApp se guarda como 52 + 10 dígitos** (formato de `wa.me`).
+- El "logo" editable se llama **"Ícono del sitio"** en el panel, porque
+  solo cambia la pestaña, la vista al compartir y el panel.

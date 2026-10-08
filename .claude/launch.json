@@ -4,8 +4,19 @@
     {
       "name": "mw-cafe-dev",
       "runtimeExecutable": "pnpm",
-      "runtimeArgs": ["dev"],
+      "runtimeArgs": [
+        "dev"
+      ],
       "port": 3000,
+      "autoPort": true
+    },
+    {
+      "name": "mw-cafe-local",
+      "runtimeExecutable": "node",
+      "runtimeArgs": [
+        "scripts/dev-local.mjs"
+      ],
+      "port": 3001,
       "autoPort": true
     }
   ]

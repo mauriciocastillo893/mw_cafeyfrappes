@@ -19,6 +19,14 @@ pnpm dev                      # http://localhost:3000
 - Después de cambiar una migración:
   `pnpm exec supabase gen types typescript --local > lib/database.types.ts`.
 
+### Probar contra Supabase local (sin tocar producción)
+
+Si `.env.local` tiene las llaves de producción:
+
+```bash
+node scripts/dev-local.mjs   # next dev con URL y llaves de `supabase status`
+```
+
 ### Cuenta de `/admin` local
 
 ```bash
@@ -73,6 +81,7 @@ volver a correr `git push` cuando se arregle.
 | `SUPABASE_SERVICE_ROLE_KEY` | Igual (service_role / secret). Nunca en el navegador |
 | `APP_BASE_URL` | `https://<proyecto>.vercel.app` |
 | `CRON_SECRET` | Texto aleatorio largo (`openssl rand -hex 24`) |
+| `STRIPE_SECRET_KEY` | Fase 6. Mientras no exista, `/admin/negocio` no deja activar domicilio ni tarjeta |
 
 4. Activar **Analytics** en el proyecto de Vercel (se hace desde el
    dashboard, no desde el código).

@@ -45,3 +45,72 @@ export async function getMenuSummaryAdmin(): Promise<MenuSummary> {
     with3d: rows.filter((p) => p.model_glb_path).length,
   };
 }
+
+// ---------------------------------------------------------------------
+// Menú (/admin/menu): todo, incluidos ocultos y agotados.
+// ---------------------------------------------------------------------
+
+export type CategoryRow = Tables<"categories">;
+export type ProductSizeRow = Tables<"product_sizes">;
+export type ExtraGroupRow = Tables<"extra_groups">;
+export type ExtraRow = Tables<"extras">;
+export type ProductAdminRow = Tables<"products"> & {
+  product_sizes: ProductSizeRow[];
+  extraGroupIds: string[];
+};
+export type ExtraGroupAdmin = ExtraGroupRow & { extras: ExtraRow[]; productCount: number };
+export type CategoryAdmin = CategoryRow & { products: ProductAdminRow[] };
+
+function toProductAdmin(
+  row: Tables<"products"> & { product_sizes: ProductSizeRow[]; product_extra_groups: { group_id: string; sort_order: number }[] }
+): ProductAdminRow {
+  const { product_extra_groups, ...product } = row;
+  return {
+    ...product,
+    product_sizes: [...row.product_sizes].sort((a, b) => a.sort_order - b.sort_order),
+    extraGroupIds: [...product_extra_groups].sort((a, b) => a.sort_order - b.sort_order).map((link) => link.group_id),
+  };
+}
+
+const PRODUCT_ADMIN_SELECT = "*, product_sizes(*), product_extra_groups(group_id, sort_order)";
+
+export async function getMenuAdmin(): Promise<CategoryAdmin[]> {
+  const supabase = getServiceSupabase();
+  const [categories, products] = await Promise.all([
+    supabase.from("categories").select("*").order("sort_order").order("name"),
+    supabase.from("products").select(PRODUCT_ADMIN_SELECT).order("sort_order").order("name"),
+  ]);
+  if (categories.error) throw categories.error;
+  if (products.error) throw products.error;
+  const all = products.data.map(toProductAdmin);
+  return categories.data.map((category) => ({
+    ...category,
+    products: all.filter((product) => product.category_id === category.id),
+  }));
+}
+
+export async function getCategoriesAdmin(): Promise<CategoryRow[]> {
+  const { data, error } = await getServiceSupabase().from("categories").select("*").order("sort_order").order("name");
+  if (error) throw error;
+  return data;
+}
+
+export async function getProductAdmin(id: string): Promise<ProductAdminRow | null> {
+  const { data, error } = await getServiceSupabase().from("products").select(PRODUCT_ADMIN_SELECT).eq("id", id).maybeSingle();
+  if (error) throw error;
+  return data ? toProductAdmin(data) : null;
+}
+
+export async function getExtraGroupsAdmin(): Promise<ExtraGroupAdmin[]> {
+  const { data, error } = await getServiceSupabase()
+    .from("extra_groups")
+    .select("*, extras(*), product_extra_groups(product_id)")
+    .order("sort_order")
+    .order("name");
+  if (error) throw error;
+  return data.map(({ extras, product_extra_groups, ...group }) => ({
+    ...group,
+    extras: [...extras].sort((a, b) => a.sort_order - b.sort_order || a.name.localeCompare(b.name)),
+    productCount: product_extra_groups.length,
+  }));
+}

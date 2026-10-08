@@ -50,6 +50,10 @@ export const env = {
   get cronSecret() {
     return requireEnv("CRON_SECRET");
   },
+  /** El cobro con tarjeta (Stripe, Fase 6) existe solo si hay llave. Sin ella, ni domicilio ni tarjeta se pueden activar. */
+  get stripeReady() {
+    return Boolean(process.env.STRIPE_SECRET_KEY);
+  },
 };
 
 /** `business_settings.site_url` (editable en /admin) con `APP_BASE_URL` de respaldo. */

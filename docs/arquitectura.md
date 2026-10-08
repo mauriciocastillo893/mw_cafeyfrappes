@@ -78,3 +78,33 @@ La variante `dark:` de Tailwind respeta ambas cosas.
   que una página regenerada hace rato no muestre un estado viejo.
 - Imágenes por defecto: `public/sample/local-terraza.jpg` (portada) y
   `local-barra.jpg` (quiénes somos), hasta que suban las oficiales (P3).
+
+## `/admin/menu`
+
+- Lecturas: `lib/admin/data.ts` (`getMenuAdmin`, `getProductAdmin`,
+  `getExtraGroupsAdmin`, con ocultos y agotados).
+- Escrituras: `lib/admin/menu-actions.ts` (Server Actions), validación
+  pura en `lib/admin/menu-form.ts`. Cada cambio hace `revalidatePath` de
+  `/menu` y `/`.
+- Tamaños: se actualizan por nombre (`upsert` en `product_id,name`) para
+  conservar su id; los grupos de extras del producto se reemplazan.
+- Fotos: el navegador las reduce a 1600 px JPG (`PhotoUploader.tsx`);
+  el servidor acepta JPG/PNG/WebP hasta 4 MB (`serverActions.bodySizeLimit`)
+  y borra la foto anterior de Storage (nunca las de `public/sample`).
+- Guardar un producto le quita `is_sample`.
+- Desarrollo sin tocar producción: `scripts/dev-local.mjs` corre `next dev`
+  con las llaves del Supabase local (le ganan a `.env.local`).
+
+## `/admin/negocio`
+
+- Un formulario por tarjeta; todos van a `saveBusinessSectionAction`
+  (`lib/admin/business-actions.ts`) con `section`, que valida solo esa
+  parte (`lib/admin/business-form.ts`) y regenera todo el sitio
+  (`revalidatePath("/", "layout")`).
+- Métodos de pago: `lib/payment-methods.ts` (`parsePaymentMatrix`,
+  `effectiveMethods`). Domicilio siempre `["card"]`.
+- `env.stripeReady` (hay `STRIPE_SECRET_KEY`) habilita domicilio y
+  tarjeta. Sin Stripe el servidor también los rechaza.
+- Ícono del sitio (`logo_path`, bucket `site-assets`): el navegador lo
+  reduce a 512 px PNG. Se usa como favicon, imagen al compartir e ícono
+  del panel; el logo de la portada y el menú sigue siendo el de `public/brand`.

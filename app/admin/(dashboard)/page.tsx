@@ -44,7 +44,11 @@ export default async function AdminHomePage() {
       {summary.samples > 0 && (
         <p className="rounded-[10px] border border-brand-accent/40 bg-brand-accent-wash p-4 text-sm">
           <strong className="font-semibold">Menú de ejemplo.</strong> {summary.samples} productos tienen nombres, precios y
-          fotos provisionales. Cuando tengamos el menú real, los reemplazamos.
+          fotos provisionales. Al editarlos y guardarlos en{" "}
+          <Link href="/admin/menu" className="underline underline-offset-4">
+            Menú
+          </Link>{" "}
+          dejan de ser de ejemplo.
         </p>
       )}
 
@@ -60,8 +64,7 @@ export default async function AdminHomePage() {
       <section className="rounded-[10px] border border-brand-border p-4 text-sm">
         <h2 className="font-semibold">Lo que viene en el panel</h2>
         <ul className="mt-2 list-disc space-y-1 pl-5 text-brand-ink/80">
-          <li>Menú: productos, precios, tamaños, extras, fotos y &quot;agotado&quot;.</li>
-          <li>Negocio, horario y landing.</li>
+          <li>Horario y landing.</li>
           <li>QR para cada mesa.</li>
           <li>Pedidos en vivo.</li>
         </ul>

@@ -80,6 +80,7 @@ Instagram**. El 3D es una pista paralela que se va perfeccionando.
 - [x] Lectura de `?mesa=N` (1–99 hasta P12), guardada en la pestaña
       (`sessionStorage`) para el pedido
 - [x] Aviso de horario cuando está cerrado ("Abrimos mañana a las 7:00 p. m.")
+- [x] Producto agotado visto en vivo (marcado desde `/admin/menu`, 2026-10-08)
 - [x] Botón "Ver menú" en la portada y `/menu` en el sitemap
 - [x] `docs/casos-de-uso.md` con el primer flujo
 - [ ] Revisión del usuario en su celular (en línea, cuando exista el deploy)
@@ -106,14 +107,28 @@ agotado, mínimo/máximo; se reutiliza en el servidor en la Fase 5) y
 
 **Pruebas:** `lib/landing-content.test.ts` (valores por defecto, links de mapas). 88 pasan.
 
-## Fase 4 — `/admin` · pendiente
+## Fase 4 — `/admin` · **en curso** (2026-10-08)
 
-- [ ] Menú: categorías, productos, tamaños, extras, agotado, fotos, orden
-- [ ] Negocio: datos, WhatsApp, redes, transferencia
+- [x] Menú (`/admin/menu`): productos (crear, editar, borrar, ordenar,
+      agotado y oculto con un clic), tamaños, grupos de extras por
+      producto, etiquetas, "en portada", fotos (se reducen en el
+      navegador a ~1600 px antes de subir); categorías (crear, editar,
+      ocultar, ordenar, borrar si están vacías); extras (grupos con
+      mínimo/máximo, precio, "hay", orden). Probado contra Supabase local
+- [x] Negocio (`/admin/negocio`): tipos de pedido y envío (mínimo,
+      costo, automático/manual), matriz de métodos de pago, datos de
+      transferencia (CLABE validada), pedidos programados (anticipación,
+      cada cuántos minutos, máximo por horario, días adelante), contacto y
+      redes, ubicación, sitio y Google, ícono del sitio. Domicilio y
+      tarjeta bloqueados hasta que exista `STRIPE_SECRET_KEY` (Fase 6)
 - [ ] Horario de apertura
 - [ ] Landing
 - [ ] QR: estudio de QR por mesa dentro del panel (portar el artefacto)
 - [ ] Métricas: visitas al menú, productos más vistos, clics a WhatsApp
+
+**Pruebas:** `lib/admin/menu-form.test.ts` (validación de producto,
+tamaños, categorías, extras, orden) y `lib/admin/business-form.test.ts`
+(WhatsApp, CLABE, matriz de pagos, envío, programados, SEO). 117 pasan.
 
 ## Fase 5 — Pedidos (sin pago en línea) · pendiente
 
