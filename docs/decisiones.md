@@ -92,3 +92,16 @@ https://claude.ai/artifact/5ze7M1jtJog4Cdfih3PDRy
 - La URL por defecto (`https://mw-cafeyfrappes.vercel.app/menu`) es
   provisional hasta crear el proyecto de Vercel.
 - Más adelante el estudio se porta a `/admin/qr`.
+
+## 2026-10-07 — Menú digital (Fase 2)
+
+- **Fuera de horario el menú se ve completo**, con el aviso "Abrimos
+  … a las …" (CLAUDE.md 5.2). El pedido programado se suma en la Fase 5.
+- **Mesas 1 a 99** en `?mesa=N` mientras no sepamos cuántas hay (P12);
+  cualquier otro valor se ignora. Motivo: un QR mal impreso o editado a
+  mano no debe romper el menú.
+- **Detalle con total pero sin botón de pedir** hasta la Fase 5, con el
+  texto "Muy pronto vas a poder pedir desde aquí". Motivo: el orden
+  acordado es menú → landing → /admin → pedidos.
+- El filtro Frío/Caliente usa las etiquetas del producto: un producto
+  sin ninguna de las dos (p. ej. crepas) solo aparece en "Todo".

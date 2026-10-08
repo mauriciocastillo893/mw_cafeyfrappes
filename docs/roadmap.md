@@ -70,15 +70,24 @@ Instagram**. El 3D es una pista paralela que se va perfeccionando.
 > `lib/gmail.ts` y `lib/google-calendar.ts` (se quitaron en la Fase 1
 > para no cargar código sin usar).
 
-## Fase 2 — Menú digital (`/menu`) · pendiente
+## Fase 2 — Menú digital (`/menu`) · **en curso** (2026-10-07)
 
-- [ ] Lista por categorías con foto, precio, tamaños y "agotado"
-- [ ] Búsqueda y filtro (frío/caliente)
-- [ ] Detalle de producto con extras
-- [ ] Lectura de `?mesa=N` (se guarda para el pedido)
-- [ ] Aviso de horario cuando está cerrado
+- [x] Lista por categorías con foto, precio, tamaños y "agotado"; barra
+      de categorías fija que marca la sección actual
+- [x] Búsqueda (sin acentos) y filtro frío/caliente
+- [x] Detalle de producto con tamaños, extras (mínimo/máximo) y total;
+      link compartible `?producto=slug`; "atrás" lo cierra
+- [x] Lectura de `?mesa=N` (1–99 hasta P12), guardada en la pestaña
+      (`sessionStorage`) para el pedido
+- [x] Aviso de horario cuando está cerrado ("Abrimos mañana a las 7:00 p. m.")
+- [x] Botón "Ver menú" en la portada y `/menu` en el sitemap
+- [x] `docs/casos-de-uso.md` con el primer flujo
+- [ ] Revisión del usuario en su celular (en línea, cuando exista el deploy)
 
-**Pruebas:** formato de precios, orden por categoría, producto agotado.
+**Pruebas:** `lib/menu.test.ts` (búsqueda, filtro, mesa, próxima
+apertura), `lib/item-price.test.ts` (precio con tamaño y extras,
+agotado, mínimo/máximo; se reutiliza en el servidor en la Fase 5) y
+`lib/money.test.ts`. 84 pasan.
 **Terminada cuando:** el menú se ve bien en celular desde el QR.
 
 ## Fase 3 — Landing (`/`) · pendiente

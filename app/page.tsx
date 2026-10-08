@@ -58,15 +58,21 @@ export default async function HomePage() {
               Café, frappés <span className="italic text-brand-accent">y waffles</span>
             </h1>
             <p className="mx-auto max-w-md text-base text-brand-ink/80">
-              Nuestro menú en línea está por llegar: muy pronto vas a poder verlo y pedir desde tu mesa, para recoger o a
+              Mira nuestro menú con precios, tamaños y extras. Muy pronto vas a poder pedir desde tu mesa, para recoger o a
               domicilio.
             </p>
           </div>
           <div className="flex flex-wrap justify-center gap-3">
+            <Link
+              href="/menu"
+              className="rounded-full bg-brand-primary px-5 py-2.5 text-sm font-semibold text-brand-on-primary transition-opacity hover:opacity-90"
+            >
+              Ver menú
+            </Link>
             {whatsappUrl && (
               <a
                 href={whatsappUrl}
-                className="rounded-full bg-brand-primary px-5 py-2.5 text-sm font-semibold text-brand-on-primary transition-opacity hover:opacity-90"
+                className="rounded-full border border-brand-ink/30 px-5 py-2.5 text-sm font-semibold transition-colors hover:bg-brand-sand"
               >
                 Escríbenos por WhatsApp
               </a>
