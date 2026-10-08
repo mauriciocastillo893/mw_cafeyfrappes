@@ -105,3 +105,14 @@ https://claude.ai/artifact/5ze7M1jtJog4Cdfih3PDRy
   acordado es menú → landing → /admin → pedidos.
 - El filtro Frío/Caliente usa las etiquetas del producto: un producto
   sin ninguna de las dos (p. ej. crepas) solo aparece en "Todo".
+
+## 2026-10-08 — Landing (Fase 3)
+
+- Textos por defecto propuestos por el desarrollador, editables en
+  `/admin/landing`; **pendientes de revisión de Franco**: portada "Café,
+  frappés y waffles", "Somos parte de Mundo Waffle", "Te esperamos por la
+  noche", "¿Dudas o pedidos especiales?".
+- Portada con la foto de la terraza y "Quiénes somos" con la de la barra
+  (de `../Publicaciones`), hasta tener fotos oficiales (P3).
+- Hasta 6 favoritos en la portada; el resto en `/menu`.
+- Mapa embebido de Google sin llave de API (gratis).

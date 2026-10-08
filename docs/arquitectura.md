@@ -7,7 +7,7 @@
 ```text
 Navegador ──► Next.js en Vercel ──► Supabase (Postgres + Auth + Storage)
                 │
-                ├─ /                  portada (anon key, lectura pública)
+                ├─ /                  landing (estática, se regenera cada 60 s)
                 ├─ /menu              menú digital (estática, se regenera cada 60 s)
                 ├─ /admin/*           panel (proxy.ts exige sesión; requireAdminUser revisa admin_users)
                 ├─ /api/cron/daily    cron diario de Vercel (keep-alive de Supabase)
@@ -68,3 +68,13 @@ La variante `dark:` de Tailwind respeta ambas cosas.
 - Lógica pura: `lib/menu.ts` (búsqueda, filtro, mesa, próxima apertura)
   y `lib/item-price.ts` (precio con tamaño y extras; el servidor lo
   vuelve a correr al crear el pedido en la Fase 5).
+
+## Landing (`/`)
+
+- `app/page.tsx` lee ajustes, menú (favoritos = `show_on_landing`) y
+  `landing_sections` con `getPublicLandingSections()`, que junta lo
+  guardado con los valores por defecto de `lib/landing-content.ts`.
+- Abierto/cerrado se calcula en el navegador (`app/OpenStatus.tsx`) para
+  que una página regenerada hace rato no muestre un estado viejo.
+- Imágenes por defecto: `public/sample/local-terraza.jpg` (portada) y
+  `local-barra.jpg` (quiénes somos), hasta que suban las oficiales (P3).

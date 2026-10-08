@@ -9,6 +9,7 @@
 import { createClient } from "@supabase/supabase-js";
 import { env } from "./config/business";
 import type { Database, Tables } from "./database.types";
+import { resolveLandingSections, type LandingSection, type LandingSectionKey } from "./landing-content";
 
 let client: ReturnType<typeof createClient<Database>> | null = null;
 
@@ -67,4 +68,11 @@ export async function getPublicMenu(): Promise<PublicMenuCategory[]> {
           ),
       })),
   }));
+}
+
+/** Las 6 secciones de la landing con su texto e imagen (editables en /admin/landing), con valores por defecto. */
+export async function getPublicLandingSections(): Promise<Record<LandingSectionKey, LandingSection>> {
+  const { data, error } = await getPublicSupabase().from("landing_sections").select("key, heading, subheading, image_path");
+  if (error) throw error;
+  return resolveLandingSections(data);
 }

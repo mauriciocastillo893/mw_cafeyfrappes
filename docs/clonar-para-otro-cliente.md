@@ -22,3 +22,7 @@
   `mw-cafeyfrappes.vercel.app` para el render del servidor.
 - **`supabase/config.toml`:** `project_id` y puertos 553xx (para que no
   choquen con Supabase local de otros clientes).
+- **`lib/landing-content.ts`:** textos por defecto de la landing
+  ("Somos parte de Mundo Waffle"…) e imágenes de respaldo de `public/sample`.
+- **`app/page.tsx`:** etiqueta "Extensión de …" y botón "Conoce …"
+  (salen de `parent_store_*` en la BD; quitar si el cliente no tiene tienda principal).

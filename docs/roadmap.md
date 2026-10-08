@@ -90,11 +90,21 @@ agotado, mínimo/máximo; se reutiliza en el servidor en la Fase 5) y
 `lib/money.test.ts`. 84 pasan.
 **Terminada cuando:** el menú se ve bien en celular desde el QR.
 
-## Fase 3 — Landing (`/`) · pendiente
+## Fase 3 — Landing (`/`) · **en curso** (2026-10-08)
 
-- [ ] Hero, "Extensión de Mundo Waffle Huatulco", destacados, horario,
-      mapa, redes, botón de WhatsApp, "Ver menú y pedir"
-- [ ] Secciones editables (`landing_sections`)
+- [x] Barra fija con "Ver menú"; portada con foto del local, "Extensión
+      de Mundo Waffle Huatulco" y abierto/cerrado con la próxima apertura
+- [x] Favoritos (hasta 6, los marcados "mostrar en landing"), cada uno
+      abre su detalle en `/menu?producto=…`
+- [x] Quiénes somos, horario, ubicación (mapa, copiar dirección, Google y
+      Apple Maps), contacto (WhatsApp, Instagram, Facebook), instalar app
+- [x] Textos e imágenes por sección leídos de `landing_sections` con
+      valores por defecto (`lib/landing-content.ts`); se editan en
+      `/admin/landing` (Fase 4)
+- [ ] Revisión de Franco de los textos por defecto
+- [ ] Video del reel en la portada (opcional; por definir con el usuario)
+
+**Pruebas:** `lib/landing-content.test.ts` (valores por defecto, links de mapas). 88 pasan.
 
 ## Fase 4 — `/admin` · pendiente
 

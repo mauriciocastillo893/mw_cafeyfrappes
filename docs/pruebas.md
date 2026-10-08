@@ -17,6 +17,7 @@ pnpm build
 | `lib/weekly-hours.test.ts` | Leer horario, "Jueves a domingo", abierto/cerrado en hora de México, cierre después de medianoche |
 | `lib/menu.test.ts` | Búsqueda sin acentos, filtro frío/caliente, `?mesa=N` válido, "Abrimos hoy / mañana / el jueves" |
 | `lib/item-price.test.ts` | Precio de un producto con tamaño y extras, agotado, extras ajenos o repetidos, mínimo y máximo por grupo |
+| `lib/landing-content.test.ts` | Textos de la landing: lo guardado manda, vacío cae al valor por defecto; links de Google/Apple Maps |
 | `lib/time-format.test.ts` | Formatos de hora (heredado de Axel) |
 | `lib/phone.test.ts` | Normalizar teléfonos mexicanos (heredado de Axel) |
 
@@ -58,3 +59,10 @@ y escritorio, claro y oscuro:
 
 Pendiente de ver en vivo: un producto agotado (marcarlo en `/admin`
 cuando exista, Fase 4).
+
+## Landing (`/`, manual)
+
+Verificado 2026-10-08 (jueves por la tarde) en celular oscuro y escritorio claro:
+"Cerrado · abrimos hoy a las 7:00 p. m.", 4 favoritos con link a su
+detalle, mapa embebido, botones de mapas, contacto e instalar app. Sin
+errores en consola.
