@@ -335,3 +335,25 @@ Decidido al implementar:
 - Quitar el `.glb` quita también el `.usdz`.
 - "Ver en tu mesa" usa realidad aumentada a **tamaño real** (`ar-scale`
   fijo): los modelos deben venir en metros.
+
+## 2026-10-09 — App instalada (PWA)
+
+Confirmado por el usuario:
+- La app instalada abre en el **menú** (`start_url: /menu`); el `id` del
+  manifest sigue en `/` para no duplicar instalaciones existentes.
+- Atajos al dejar presionado el ícono (Android): **Menú** y **Mis
+  pedidos** (`/mis-pedidos`, los pedidos de las últimas 12 horas que
+  recuerda ese celular).
+- Ofrecer "Instalar app" en el **menú** (aviso que se puede cerrar), **al
+  terminar un pedido** (`/pedido/<token>`) y en la portada (ya estaba).
+
+Decidido al implementar:
+- El aviso del menú y del pedido sale **solo en celular** (Android o
+  iPhone) y nunca dentro de la app instalada. Si el cliente lo cierra, no
+  vuelve a salir en ninguno de los dos lugares (se recuerda en el
+  celular). La sección de la portada se queda siempre.
+- `/menu` entra al caché inicial del service worker para que la app abra
+  sin señal; `/mis-pedidos` no se indexa en Google.
+- En iPhone, la app instalada guarda sus datos aparte de Safari: un
+  pedido hecho en Safari no aparece en "Mis pedidos" de la app (límite de
+  Apple).

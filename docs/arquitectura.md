@@ -222,3 +222,14 @@ La variante `dark:` de Tailwind respeta ambas cosas.
   `20261013000000_proof_retention.sql`); el cron diario
   (`/api/cron/daily`) borra hasta 500 capturas por corrida
   (`lib/retention.ts`).
+
+## App instalada (PWA)
+
+- `app/manifest.ts`: `start_url` `/menu` (el `id` sigue en `/`), atajos
+  `/menu` y `/mis-pedidos`. `public/sw.js` guarda `/` y `/menu` para abrir
+  sin señal (caché `mw-cafe-shell-v2`).
+- `app/useInstallApp.ts`: lo común de instalar (aviso del navegador o guía
+  `InstallGuideModal`) y "ya lo cerró" (`localStorage`). Lo usan
+  `InstallApp` (sección de la portada) e `InstallPrompt` (aviso del menú y
+  de `/pedido/<token>`, solo en celular).
+- `app/mis-pedidos`: lista los pedidos recordados por `cart-store.ts`.

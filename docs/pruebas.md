@@ -23,6 +23,7 @@ pnpm build
 | `lib/card-payment.test.ts` | Plazo para pagar (60 min, mínimo de Stripe de 31 min, envío manual), renglones de la página de pago (producto, tamaño, extras, nota, envío; si no suman el total, un solo renglón), monto y moneda pagados |
 | `lib/models.test.ts` | Modelos 3D: formato `.glb` / `.usdz` por sus primeros bytes, ruta en Storage solo de ese producto y tipo, máximo 10 MB y aviso arriba de 4 MB |
 | `lib/retention.test.ts` | Fecha de corte de comprobantes y días permitidos (7 a 3650) |
+| `lib/time-ago.test.ts` | "hace un momento", "hace 25 min", "hace 2 h" (Mis pedidos) |
 | `lib/geo.test.ts` | Distancia en línea recta, coordenadas válidas, "850 m" / "3.2 km", enlace a Maps |
 | `lib/order-slots.test.ts` | Horas programables: 2 h de anticipación, cada 30 min, solo días que abren, hasta N días, horario lleno con 5, horas inventadas, cierre después de medianoche |
 | `lib/order-format.test.ts` | "Hoy / Mañana / Domingo 11 oct", hora en el formato del negocio, renglón del pedido, teléfono |
@@ -260,3 +261,17 @@ Verificado 2026-10-08:
 ```bash
 curl -i -X POST -d '{"m":"menu_view","k":"3"}' localhost:3000/api/metrics   # 204
 ```
+
+## App instalada (manual, vista de celular)
+
+Verificado 2026-10-09 en 375 px con Supabase local:
+- `/menu` → aviso "Instala MW Café en tu celular…" → **Instalar** abre la
+  guía (Android, paso 1 de 3) → la × lo oculta y ya no vuelve al recargar.
+- `/pedido/<token>` → aviso "Instala la app para ver tus pedidos…" arriba
+  de WhatsApp / Cancelar.
+- `/mis-pedidos` con un pedido recordado → "Pedido #12 · hace 24 min" y
+  "Ver cómo va"; sin pedidos → mensaje y "Ver el menú".
+- `/manifest.webmanifest` → `start_url` `/menu` y los dos atajos;
+  `/robots.txt` bloquea `/mis-pedidos`; la portada sigue con "Instala la app".
+- **Pendiente en celulares reales:** instalar en Android y iPhone, que abra
+  en el menú y los atajos del ícono.

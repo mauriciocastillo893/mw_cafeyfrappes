@@ -9,6 +9,7 @@ import type { TimeFormat } from "@/lib/time-format";
 import { isOpenAt, type WeeklyHour } from "@/lib/weekly-hours";
 import { rememberTable, setSearchParam, useMinuteClock, useSearchParam, useTableNumber } from "./client-state";
 import { track } from "../track";
+import { InstallPrompt } from "../InstallPrompt";
 import { ProductPhoto, TagList } from "./ProductBits";
 import { CartBar, RecentOrderLink } from "./CartBar";
 import { ProductSheet } from "./ProductSheet";
@@ -21,6 +22,8 @@ interface MenuViewProps {
   serverNow: number;
   /** El negocio toma pedidos en línea (recoger o mesa activos). */
   canOrder: boolean;
+  /** Logo subido en /admin (para la guía de instalar la app). */
+  iconUrl: string | null;
 }
 
 const TEMPERATURE_OPTIONS: { value: TemperatureFilter | null; label: string }[] = [
@@ -29,7 +32,7 @@ const TEMPERATURE_OPTIONS: { value: TemperatureFilter | null; label: string }[] 
   { value: "caliente", label: "Caliente" },
 ];
 
-export function MenuView({ categories, hours, timeFormat, serverNow, canOrder }: MenuViewProps) {
+export function MenuView({ categories, hours, timeFormat, serverNow, canOrder, iconUrl }: MenuViewProps) {
   const now = useMinuteClock(serverNow);
   const open = isOpenAt(hours, new Date(now));
   const nextOpening = open ? null : getNextOpening(hours, new Date(now));
@@ -120,6 +123,10 @@ export function MenuView({ categories, hours, timeFormat, serverNow, canOrder }:
 
       <div className="mx-auto w-full max-w-3xl px-4 empty:hidden sm:px-6">
         <RecentOrderLink now={now} />
+      </div>
+
+      <div className="mx-auto mt-3 w-full max-w-3xl px-4 empty:hidden sm:px-6">
+        <InstallPrompt place="menu" iconUrl={iconUrl} />
       </div>
 
       {!open && (

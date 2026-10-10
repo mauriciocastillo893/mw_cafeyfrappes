@@ -19,9 +19,11 @@ import {
 } from "@/lib/orders";
 import { PAYMENT_METHOD_LABELS, type PaymentMethod } from "@/lib/payment-methods";
 import { getPublicBusinessSettings } from "@/lib/public-data";
+import { getSiteAssetUrl } from "@/lib/storage";
 import { parseTimeFormat } from "@/lib/time-format";
 import { ConfirmSubmit } from "../../admin/(dashboard)/ConfirmSubmit";
 import { CopyButton } from "../../CopyButton";
+import { InstallPrompt } from "../../InstallPrompt";
 import { AutoRefresh } from "./AutoRefresh";
 import { ProofUploader } from "./ProofUploader";
 
@@ -256,6 +258,8 @@ export default async function OrderPage({ params, searchParams }: PageProps<"/pe
           </p>
           {order.note && <p className="text-sm text-brand-ink/70">Nota: “{order.note}”</p>}
         </section>
+
+        <InstallPrompt place="order" iconUrl={getSiteAssetUrl(settings.logo_path)} />
 
         <section className="flex flex-col gap-3 border-t border-brand-border pt-5">
           <p className="text-xs text-brand-ink/60">Guarda esta página para ver cómo va tu pedido; se actualiza sola.</p>

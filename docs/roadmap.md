@@ -104,6 +104,9 @@ agotado, mínimo/máximo; se reutiliza en el servidor en la Fase 5) y
       `/admin/landing` (Fase 4)
 - [ ] Revisión de Franco de los textos por defecto
 - [ ] Video del reel en la portada (opcional; por definir con el usuario)
+- [x] App instalada (2026-10-09): abre en el menú; atajos "Menú" y "Mis
+      pedidos" (`/mis-pedidos`); aviso "Instalar" que se puede cerrar en
+      el menú y en la página del pedido (solo celular). `lib/time-ago.test.ts`
 
 **Pruebas:** `lib/landing-content.test.ts` (valores por defecto, links de mapas). 88 pasan.
 

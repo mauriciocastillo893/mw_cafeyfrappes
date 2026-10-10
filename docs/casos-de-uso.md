@@ -95,8 +95,22 @@ se ve deshabilitado con "· agotado".
    barra: Recibido → Preparando → Listo (para recoger / va a tu mesa / en
    camino) → Entregado. La página se actualiza sola cada 10 segundos.
 2. En el menú, durante 12 horas, aparece "Tu pedido #12: ver cómo va".
+   También en **`/mis-pedidos`** (atajo "Mis pedidos" al dejar presionado
+   el ícono de la app en Android), con los pedidos de las últimas 12 horas
+   de ese celular.
 3. **Cancelar:** botón "Cancelar pedido" solo mientras siga "Recibido" (y
    no se haya pagado con tarjeta).
    Después, por WhatsApp (botón con el número de pedido ya escrito).
 4. Para recoger: dice su número y su nombre en el mostrador.
 
+## 5. Instalar la app
+
+1. En celular, el menú y la página del pedido muestran "Instala MW Café
+   en tu celular…" con **Instalar** y una ×.
+2. **Instalar:** en Android con Chrome sale el aviso del navegador; si no
+   lo hay (iPhone siempre) o lo cierra, se abre la guía paso a paso con
+   la pantalla simulada del celular.
+3. La × lo oculta para siempre en ese celular (menú y pedido). La
+   portada siempre tiene su sección "Instala la app".
+4. La app instalada abre en el menú. En Android, al dejar presionado el
+   ícono salen los atajos **Menú** y **Mis pedidos**.

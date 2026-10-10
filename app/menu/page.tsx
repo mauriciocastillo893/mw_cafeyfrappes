@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { business } from "@/lib/config/business";
 import { getPublicBusinessSettings, getPublicMenu } from "@/lib/public-data";
+import { getSiteAssetUrl } from "@/lib/storage";
 import { parseTimeFormat } from "@/lib/time-format";
 import { parseWeeklyHours } from "@/lib/weekly-hours";
 import { MenuView } from "./MenuView";
@@ -29,6 +30,7 @@ export default async function MenuPage() {
       timeFormat={parseTimeFormat(settings.time_format)}
       serverNow={new Date().getTime()}
       canOrder={settings.order_pickup_enabled || settings.order_table_enabled}
+      iconUrl={getSiteAssetUrl(settings.logo_path)}
     />
   );
 }

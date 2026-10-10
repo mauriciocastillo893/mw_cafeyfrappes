@@ -71,7 +71,7 @@ punto del pedido, pedidos con tarjeta fuera del tablero hasta pagarse;
 aplicada el 2026-10-09), `20261012000000_stripe.sql` (sesión y pago de
 Stripe del pedido, plazo para pagar; aplicada el 2026-10-09) y
 `20261013000000_proof_retention.sql` (días que se guardan los
-comprobantes).
+comprobantes; aplicada el 2026-10-09).
 
 ### Repos
 
